@@ -7,4 +7,6 @@
 
 [Requirements](https://github.com/CeylinBrooks/rebu/blob/main/requirements.md)
 
-[UML and WireFrame](https://github.com/CeylinBrooks/rebu/blob/main/UML-Wireframe.md)
+[UML and WireFrame](https://github.com/CeylinBrooks/rebu/blob/main/UML-Wireframe.md)  
+
+[User Stories](user-stories.md)
