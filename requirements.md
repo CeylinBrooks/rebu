@@ -18,22 +18,51 @@ Why should we care about your product?
 IN - What will your product do?
 
   - Allow users to request to be picked up from a location.
-  - Allow 
   - Will allow drivers to accept and complete rides.
   - Will allow user authentication via sign-up or sign-in.
+  - Will allow users to sign up as a Rider or Driver.
 
 OUT - What will your product not do?
+
+ - Will not be a food delivery application.
 
 
 ## Minimum Viable Product
 
 What will your MVP functionality be?
 
-What are your stretch goals?
+  - Three functions to call the driver.
+
+  - Authorize sign-up/sign-in for Rider, Driver and Admin
+
+  - Riders can equest a pickup
+
+  - Driver has the ability to pull ride requests from the queue
+
+  - Ride complete button(function)
+
+  - *Admin log-in : to review requested/completed rides(log)
+
+  - *Database- completed ride logged && rider requests
+
+
 
 ## Stretch
 
+What are your stretch goals?
+
+  - Deploy with AWS
+  - Return pick-up
+  - Time travel ride share
+  - Admin Dashboard w/ trip details
+  - Ride history
+  - Live map intergration
+
+
 What stretch goals are you going to aim for?
+
+  - Deploy with AWS
+  - Admin Dashboard w/ trip details
 
 ## Functional Requirements
 
