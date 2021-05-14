@@ -66,7 +66,10 @@ What stretch goals are you going to aim for?
 
 ## Functional Requirements
 
+   - An admin view past trip logs
+   - Rider, Driver Sign-In/Sign-Up
    - 
+
 
 ## Data Flow
 
