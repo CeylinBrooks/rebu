@@ -67,8 +67,11 @@ What stretch goals are you going to aim for?
 ## Functional Requirements
 
    - An admin view past trip logs
-   - Rider, Driver Sign-In/Sign-Up
-   - 
+   - Rider &Driver Sign-In/Sign-Up
+   - Rider can request a ride
+   - Driver can accept a ride request
+   - Rider and Driver can update their profiles
+   - Rider and Driver can see the suggested route in the app
 
 
 ## Data Flow
