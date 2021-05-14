@@ -3,3 +3,6 @@
 
 ## WireFrame
 <img width="1226" alt="Screen Shot 2021-05-14 at 12 31 41 PM" src="https://user-images.githubusercontent.com/66962689/118307630-914e3e80-b4b0-11eb-88dc-b0a7880fcc59.png">
+
+## Entity Relationship Diagram
+<img width="1070" alt="Screen Shot 2021-05-14 at 1 51 05 PM" src="https://user-images.githubusercontent.com/66962689/118318787-7b944580-b4bf-11eb-8a84-da2dd63cb784.png">
