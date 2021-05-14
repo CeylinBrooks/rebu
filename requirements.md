@@ -66,7 +66,12 @@ What stretch goals are you going to aim for?
 
 ## Functional Requirements
 
+   - 
+
 ## Data Flow
+
+<img width="885" alt="Screen Shot 2021-05-14 at 11 19 20 AM" src="https://user-images.githubusercontent.com/66962689/118299356-40394d00-b4a6-11eb-9bd8-ef7c5eb92165.png">
+
 
 ## Non-Functional Requirements
 
