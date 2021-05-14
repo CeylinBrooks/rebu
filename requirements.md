@@ -81,3 +81,8 @@ What stretch goals are you going to aim for?
 
 ## Non-Functional Requirements
 
+  - Usability: Our app makes it simple for a user to request a ride after either creating a new account or logging into an exising account. The simple interface allows the user to request a ride with minimal options as to cut out the confusion of ride requests. The user also have clearly labeled buttons for login, log out and ride requesting.
+
+
+  - Reliability: The app ensure that the user has a mode of transportion, with drivers availiable for rides 24/7. The will undergo testing to ensure it maintians its functinality. To miniize any downtime that user may experience the app will hae regular updates to patch in break in database or server communication.
+
