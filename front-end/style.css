@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Chela+One&family=Lato&display=swap');
+
+body {
+  background-color: rgba(99, 201, 134, 0.996); 
+  margin: 0px auto;
+  width: 375px;
+
+}
+
+#brand {
+  margin: auto;
+  align-content: center;
+  font-family: 'Chela One', cursive;
+  font-size: 100px;
+  color: rgba(23, 110, 80, 0.996);
+}
