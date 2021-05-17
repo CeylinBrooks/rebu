@@ -4,13 +4,57 @@ const express = require('express');
 const authRouter = express.Router();
 
 const basicAuth = require('./middleware/basic.js');
-const bearerAuth = require('./middleware/bearer.js');
-const permissions = require('./middleware/acl.js');
 
-authRouter.post('/signup', (req, res) => {
-  const sqlString = 'INSERT INTO users (username, pass_hash, name, email, role) VALUES ($1, $2, $3, $4, $5) RETURNING id;'
-  const sqlArray = [req.body.username, req.body.pass_hash, req.body.name, req.body.email, req.body.role];
+const User = require('./models/users-schema.js');
 
-  client.query(sqlString, sqlArray)
-    .then()
-})
+authRouter.post('/signup', async (req, res, next) => {
+
+  try {
+    let user = new User(req.body);
+    const userRecord = await user.save();
+    const output = {
+      user: userRecord,
+      token: userRecord.token
+    };
+
+    res.status(201).json({
+      status: "success",
+      output
+    });
+  } catch (e) {
+    res.json({
+      status: "error",
+      error: e.message
+    })
+  }
+});
+
+authRouter.post('/signin', basicAuth, (req, res, next) => {
+  try {
+    const user = {
+      user: req.user,
+      token: req.user.token
+    };
+
+    // Sets cookie "token" as user token
+    res.cookie('token', req.user.token, {
+      secure: true,
+      httpOnly: true
+    });
+
+    res.cookie('id', req.user._id);
+
+    res.json({
+      status: "success",
+      user
+    });
+
+  } catch (e) {
+    res.json({
+      status: "error",
+      error: e.message
+    })
+  }
+});
+
+module.exports = authRouter;
