@@ -3,9 +3,8 @@
 const express = require('express');
 const authRouter = express.Router();
 
-const basicAuth = require('./middleware/basic.js');
-
 const User = require('./models/users-schema.js');
+const basicAuth = require('./middleware/basic.js');
 
 authRouter.post('/signup', async (req, res, next) => {
 
