@@ -39,7 +39,7 @@ app.use(error);
 
 //Socet.io connection
 const server = require('http').createServer(app);
-const io = require('socket-io')(server);
+const io = require('socket.io')(server);
 
 io.on('connection', socket => {
     // rider emits "ride-scheduled" and pass object with trip info(name, pickup, dropoff, timestamp)
@@ -50,7 +50,7 @@ io.on('connection', socket => {
         //add event to logger db
         //add ride to queue
     })
-    
+
     //driver accepts first ride in queue by clicking "Get New Trip"
     socket.on('ride-accepted', message => {
         socket.broadcast.emit('ride-accepted', { message: message, name: users[socket.id] })
