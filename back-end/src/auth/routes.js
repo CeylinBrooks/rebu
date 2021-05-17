@@ -3,14 +3,37 @@
 const express = require('express');
 const authRouter = express.Router();
 
+const User = require('./models/users-schema.js');
 const basicAuth = require('./middleware/basic.js');
 const bearerAuth = require('./middleware/bearer.js');
 const permissions = require('./middleware/acl.js');
 
-authRouter.post('/signup', (req, res) => {
-  const sqlString = 'INSERT INTO users (username, pass_hash, name, email, role) VALUES ($1, $2, $3, $4, $5) RETURNING id;'
-  const sqlArray = [req.body.username, req.body.pass_hash, req.body.name, req.body.email, req.body.role];
+authRouter.post('/signup', async (req, res, next) => {
+  try{
+    let user = new User(req.body);
+    const userInfo = await user.save()
+    const output = {
+      user: userInfo,
+      token: userInfo.token
+    };
+    res.status(201).json(output)
+  }catch (e) {
+    next(e.message)
+  }
+});
 
-  client.query(sqlString, sqlArray)
-    .then()
+authRouter.post('/signin', basicAuth, (req, res, next) => {
+  const user = {
+    user: req.user,
+    token: req.user.token
+  };
+  res.status(200).json(user)
 })
+
+// not finished router for admin
+authRouter.get('/events', bearerAuth, permissions('delete'), async (req, res, next) => {
+  res.status(200).send('Welcome to the Admin router')
+  
+})
+
+module.exports = authRouter;
