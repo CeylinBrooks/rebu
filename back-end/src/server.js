@@ -47,62 +47,80 @@ const io = require('socket.io')(server);
 
 io.on('connection', socket => {
     // rider emits "ride-scheduled" and pass object with trip info(name, pickup, dropoff, timestamp)
-    socket.on('ride-scheduled',  async (trip) => {
+    socket.on('ride-scheduled', async (trip) => {
         let tripId = trip._id;
-        socket.broadcast.emit('ride-scheduled', trip)
-
-        //add object to trip table
+        
+        // add object to trip table
         try {
             const newTrip = new Trip(trip);
             await newTrip.save()
         } catch {
-            res.status(500).json({err: "error saving trip to db"});
+            res.status(500).json({ err: "error saving trip to db" });
         }
-
-        //add event to logger db
+        
+        // add event to logger db
         eventLogger(trip, 'requested');
-
-        //add ride to queue
+        
+        // add ride to queue
         rideQueue.rides.push(trip); // we will shift() this out on the front end button click
+
+        socket.broadcast.emit('ride-scheduled', trip)
     })
 
     //driver accepts first ride in queue by clicking "Get New Trip"
     socket.on('ride-accepted', async (trip) => {
-        // socket.broadcast.emit('ride-accepted', { trip: trip, name: users[socket.id] })
-        //dequeue item from queue (on front end?)
-
-        // TODO: driver_id = driver id 
-        const time = new Date();
-        //log to logger
+        
+        // dequeue item from queue (on front end?)
+        
+        // TODO: driver_id = driver id (attached on front-end?)
+        const driver_id = trip.driver_id;
+        
+        // log to logger
         eventLogger(trip, 'accecpted');
-
-        //modify object in trip table
+        
+        // modify object in trip table
+        const time = new Date();
         await db.trips.updateOne(
-            { 'name' : `${trip._id}` },
-            { $set: { 'driver_id' : `${driver_id}`, 'accecpt_time' : `${time}`} },
-        )
+            { 'name': `${trip._id}` },
+            { $set: { 'driver_id': `${driver_id}`, 'accecpt_time': `${time}` } },
+            )
+            // emit ride-accecpted event to rider
+            socket.broadcast.emit('ride-accepted', { trip: trip, name: users[socket.id] })
     })
 
-    //after driver accepts ride, new button appears to initiate pickup, on click emits pickup event
-    socket.on('pickup', trip => {
-        // socket.broadcast.emit('pickup', { trip: trip, name: users[socket.id] })
-        //rider listens and maybe add notification of pickup
+    // after driver accepts ride, new button appears to initiate pickup, on click emits pickup event
+    socket.on('pickup', async (trip) => {
 
-        //log to logger
+
+        // log to logger
         eventLogger(trip, 'pickup');
 
-        //modify object in trip table
+        // modify object in trip table
+        const time = new Date();
+        await db.trips.updateOne(
+            { 'name': `${trip._id}` },
+            { $set: { 'pickup_time': `${time}` } },
+        )
+
+        // rider listens and maybe add notification of pickup
+        socket.broadcast.emit('pickup', { trip: trip, name: users[socket.id] })
     })
 
     // after driver inititiate pickup, new button appears for dropoff, on click, emits dropoff event
-    socket.on('dropoff', trip => {
-        // socket.broadcast.emit('dropoff', { trip: trip, name: users[socket.id] })
+    socket.on('dropoff', async (trip) => {
+
         // log to logger
         eventLogger(trip, 'dropoff');
 
-        //modify object in trip table
+        // modify object in trip table
+        const time = new Date();
+        await db.trips.updateOne(
+            { 'name': `${trip._id}` },
+            { $set: { 'dropoff_time': `${time}` } },
+        )
 
-        //rider listens for event and displays final trip info
+        // rider listens for event and displays final trip info
+        socket.broadcast.emit('dropoff', { trip: trip, name: users[socket.id] })
     })
 
 })
@@ -114,7 +132,7 @@ async function eventLogger(trip, event) {
         trip_id: trip._id, // ??? correct? 
         timestamp: time,
         event_type: event
-      })
+    })
     await Log.save(logItem);
 }
 
