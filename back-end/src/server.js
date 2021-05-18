@@ -15,6 +15,9 @@ const error = require('./error-handlers/500.js');
 const authRoutes = require('./auth/routes.js');
 const pageRoutes = require("./routes/routes.js");
 
+// DB schema
+const Trip = require('./auth/models/trips-schema.js'); // this should be moved out of Auth dir?
+const Log = require('./auth/models/logger-schema');
 
 // App Configuration
 const app = express();
@@ -33,6 +36,10 @@ app.use(pageRoutes);
 app.use("*", notFound);
 app.use(error);
 
+// In-memory requested rides queue
+const rideQueue = {
+    rides: {},
+}
 
 // Socket.io connection
 const server = require('http').createServer(app);
@@ -40,39 +47,76 @@ const io = require('socket.io')(server);
 
 io.on('connection', socket => {
     // rider emits "ride-scheduled" and pass object with trip info(name, pickup, dropoff, timestamp)
-    socket.on('ride-scheduled', ({ trip }) => {
-        users[socket.id] = name
-        socket.broadcast.emit('ride-scheduled', name)
+    socket.on('ride-scheduled',  async (trip) => {
+        let tripId = trip._id;
+        socket.broadcast.emit('ride-scheduled', trip)
+
         //add object to trip table
+        try {
+            const newTrip = new Trip(trip);
+            await newTrip.save()
+        } catch {
+            res.status(500).json({err: "error saving trip to db"});
+        }
+
         //add event to logger db
+        eventLogger(trip, 'requested');
+
         //add ride to queue
+        rideQueue.rides.push(trip); // we will shift() this out on the front end button click
     })
 
     //driver accepts first ride in queue by clicking "Get New Trip"
-    socket.on('ride-accepted', message => {
-        socket.broadcast.emit('ride-accepted', { message: message, name: users[socket.id] })
-        //dequeue item from queue
+    socket.on('ride-accepted', async (trip) => {
+        // socket.broadcast.emit('ride-accepted', { trip: trip, name: users[socket.id] })
+        //dequeue item from queue (on front end?)
+
+        // TODO: driver_id = driver id 
+        const time = new Date();
         //log to logger
+        eventLogger(trip, 'accecpted');
+
         //modify object in trip table
+        await db.trips.updateOne(
+            { 'name' : `${trip._id}` },
+            { $set: { 'driver_id' : `${driver_id}`, 'accecpt_time' : `${time}`} },
+        )
     })
 
     //after driver accepts ride, new button appears to initiate pickup, on click emits pickup event
-    socket.on('pickup', message => {
-        socket.broadcast.emit('pickup', { message: message, name: users[socket.id] })
+    socket.on('pickup', trip => {
+        // socket.broadcast.emit('pickup', { trip: trip, name: users[socket.id] })
         //rider listens and maybe add notification of pickup
+
         //log to logger
+        eventLogger(trip, 'pickup');
+
         //modify object in trip table
     })
 
     // after driver inititiate pickup, new button appears for dropoff, on click, emits dropoff event
-    socket.on('dropoff', message => {
-        socket.broadcast.emit('dropoff', { message: message, name: users[socket.id] })
+    socket.on('dropoff', trip => {
+        // socket.broadcast.emit('dropoff', { trip: trip, name: users[socket.id] })
         // log to logger
+        eventLogger(trip, 'dropoff');
+
         //modify object in trip table
+
         //rider listens for event and displays final trip info
     })
 
 })
+
+async function eventLogger(trip, event) {
+    // logs trip event to logger db
+    let time = new Date();
+    let logItem = new Log({
+        trip_id: trip._id, // ??? correct? 
+        timestamp: time,
+        event_type: event
+      })
+    await Log.save(logItem);
+}
 
 module.exports = {
     server: server,
