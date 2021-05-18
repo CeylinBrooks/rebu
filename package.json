@@ -8,5 +8,8 @@
     "dev": "nodemon index.js",
     "test": "jest --coverage --verbose",
     "postinstall": "npm install --prefix ./back-end"
+  },
+  "dependencies": {
+    "base-64": "^1.0.0"
   }
 }
