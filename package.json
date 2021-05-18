@@ -1,0 +1,12 @@
+{
+  "name": "rebu",
+  "version": "1.0.0",
+  "description": "a time-sharing app",
+  "main": "./back-end/index.js",
+  "scripts": {
+    "start": "node ./back-end/index.js",
+    "dev": "nodemon index.js",
+    "test": "jest --coverage --verbose",
+    "postinstall": "npm install --prefix ./back-end"
+  }
+}
