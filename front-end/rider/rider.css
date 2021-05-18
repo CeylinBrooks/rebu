@@ -1,0 +1,9 @@
+.no-close .ui-dialog-titlebar-close {
+  display: none;
+}
+
+#dialog{
+  border: 2px solid black;
+  width: 500px;
+  height: 500px;
+}
