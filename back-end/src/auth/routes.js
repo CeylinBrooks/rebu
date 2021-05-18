@@ -5,6 +5,8 @@ const authRouter = express.Router();
 
 const User = require('./models/users-schema.js');
 const basicAuth = require('./middleware/basic.js');
+const cookieParser = require('cookie-parser');
+authRouter.use(cookieParser())
 
 authRouter.post('/signup', async (req, res, next) => {
 
@@ -55,5 +57,11 @@ authRouter.post('/signin', basicAuth, (req, res, next) => {
     })
   }
 });
+
+authRouter.get('/logout', function(req, res){
+  res.clearCookie('token')
+  
+  res.redirect('/')
+})
 
 module.exports = authRouter;
