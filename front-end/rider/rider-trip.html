@@ -1,30 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+  <!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script> -->
+  <link rel="stylesheet" href="reset.css">
+  <link rel="stylesheet" href="rider.css">
+
 </head>
 <body>
+  <div id="user-input">
+    <input type="text" id="start" placeholder="Start" ></input>
+    <input type="text" id="end" placeholder="Destination" ></input>
+    <button id="get-directions" >Request Ride</button>
+  </div>
   <div id="map" ></div>
-  <div>
-    <strong>Start: </strong>
-    <input type="text" id="start">
-      
-  </input>
-    <strong>End: </strong>
-    <input type="text" id="end" >
-      
-  </input>
-  <button id="get-directions">Get Route</button>
-    </div>
-  <!-- <div id="directionsPanel" style="float:right;width:30%;height:100%"></div> -->
-  <script src="./map.js"></script>
-  <script
-      src="https://maps.googleapis.com/maps/api/js?key=process.env.GOOGLEMAP_API&callback=initMap&libraries=&v=weekly"
-      async
-    ></script>
+  <div id="output"></div>
+  <div id="start-details"></div>
+  <div id="end-details"></div>
+
+  <script async defer
+  src="https://maps.googleapis.com/maps/api/js?v=weekly&key=&libraries=geometry,places"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script defer src="map.js" ></script>
+    
 </body>
 </html>
