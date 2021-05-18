@@ -4,6 +4,7 @@
   "description": "REBU Back End",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -18,7 +19,17 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.12.9",
     "morgan": "^1.10.0",
-    "pg": "^8.6.0"
+    "pg": "^8.6.0",
+    "socket.io": "^4.1.2"
   },
-  "keywords": []
+  "keywords": [],
+  "config": {
+    "mongodbMemoryServer": {
+      "systemBinary": "/opt/homebrew/bin/mongod",
+      "arch": "x64",
+      "disablePostinstall": "1",
+      "version": "4.4.2",
+      "debug": "0"
+    }
+  }
 }

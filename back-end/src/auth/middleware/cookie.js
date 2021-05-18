@@ -9,7 +9,7 @@ module.exports = async (req, res, next) => {
     if (!req.cookies.token) { _authError() }
 
     const token = req.cookies.token;
-    const validUser = await users.authenticateBearer(token);
+    const validUser = await users.authenticateWithToken(token);
 
     req.user = validUser;
     // req.token = validUser.token;
