@@ -1,8 +1,59 @@
+
 * {
   background: aquamarine;
 }
 
 .no-close .ui-dialog-titlebar-close {
   display: none;
+}
+
+/* .no-close .ui-dialog-titlebar-close {
+  display: none;
+}
+
+#dialog{
+  border: 2px solid black;
+  width: 500px;
+  height: 500px;
+} */
+
+body { 
+  margin: 0px auto;
+  width: 375px;
+  height: 812px
+}
+#user-input {
+  margin: 5vw;
+}
+
+#start{
+  width: 35vw;
+}
+
+#end {
+  width: 35vw;
+}
+
+
+.alert-info {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: .3em;
+}
+#map{
+  overflow: auto;
+  margin: 3.5vw;
+  width: 80vw;
+  height: 80vw;
+}
+
+#output {
+  text-align: center;
+  font-size: 2em;
+  margin: 20px auto;
+}
+
+.map-section {
+  width: 50vw;
+  height: 50vw
 }
 
