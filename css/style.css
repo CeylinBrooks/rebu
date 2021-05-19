@@ -16,6 +16,65 @@ body {
   font-family: 'Chela One', cursive;
   font-size: 100px;
   color: rgba(23, 110, 80, 0.996);
+  position: relative;
+}
+
+h1{
+  font-size: 30px;
+  font-family: 'Chela One', cursive;
+  padding-bottom: 15px;
+}
+
+span{
+  font-family: 'Chela One', cursive;
+}
+
+#rider{
+  border-radius: 5px;
+  font-family: 'Chela One', cursive;
+
+}
+
+#driver{
+  font-family: 'Chela One', cursive;
+}
+
+p{
+  font-size: 30px;
+  font-family: 'Chela One', cursive;
+
+}
+
+button{
+  display: flex;
+  justify-content: center;
+  font-family: 'Chela One', cursive;
+  color: aliceblue;
+  margin: 50px;
+  margin-left: 110px;
+  padding-bottom: 30px;
+  border-radius: 25px;
+  background: transparent;
+  padding: 20px;
+  position:relative;
+  top:1px;
+  color: rgb(226, 235, 233);
+
+}
+
+input[type=text], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+button :hover{
+  opacity: 30%;
+  cursor: pointer;
 }
 
 img{
@@ -51,12 +110,3 @@ form{
   width: 375px;
   text-align: center;
 }
-
-/* #rider{
-  display: block;
-
-}
-
-#driver{
-  display: block;
-} */

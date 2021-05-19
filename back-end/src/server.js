@@ -37,9 +37,7 @@ app.use("*", notFound);
 app.use(error);
 
 // In-memory requested rides queue
-const rideQueue = {
-    rides: {},
-}
+const rideQueue = [];
 
 // Socket.io connection
 const server = require('http').createServer(app);
@@ -47,24 +45,27 @@ const io = require('socket.io')(server);
 
 io.on('connection', socket => {
     // rider emits "ride-scheduled" and pass object with trip info(name, pickup, dropoff, timestamp)
-    socket.on('ride-scheduled', async (trip) => {
-        let tripId = trip._id;
+    socket.on('ride-scheduled', async (tripObj) => {
+        console.log('ride requested');
         
-        // add object to trip table
         try {
-            const newTrip = new Trip(trip);
-            await newTrip.save()
+            // add object to trip table
+            const newTrip = new Trip(tripObj);
+            const tripRecord = await newTrip.save()
+
+            // add event to logger db
+            eventLogger(tripRecord, 'requested');
+
+            // add ride to queue
+            rideQueue.push(tripRecord); // we will shift() this out on the front end button click
+    
+            // emit 'ride-scheduled' event back to rider
+            socket.emit('ride-scheduled', tripRecord);
         } catch {
-            res.status(500).json({ err: "error saving trip to db" });
+            console.error();
+            // res.status(500).json({ err: "error saving trip to db" });
         }
         
-        // add event to logger db
-        eventLogger(trip, 'requested');
-        
-        // add ride to queue
-        rideQueue.rides.push(trip); // we will shift() this out on the front end button click
-
-        socket.broadcast.emit('ride-scheduled', trip)
     })
 
     //driver accepts first ride in queue by clicking "Get New Trip"
@@ -74,7 +75,7 @@ io.on('connection', socket => {
         
         // TODO: driver_id = driver id (attached on front-end?)
         const driver_id = trip.driver_id;
-        
+
         // log to logger
         eventLogger(trip, 'accecpted');
         
@@ -133,7 +134,8 @@ async function eventLogger(trip, event) {
         timestamp: time,
         event_type: event
     })
-    await Log.save(logItem);
+    const logRecord = await logItem.save();
+    console.log('logRecord:', logRecord);
 }
 
 module.exports = {
