@@ -48,12 +48,10 @@ io.on('connection', socket => {
     socket.on('ride-scheduled', async (tripObj) => {
         console.log('ride requested');
         
-        // add object to trip table
         try {
+            // add object to trip table
             const newTrip = new Trip(tripObj);
             const tripRecord = await newTrip.save()
-
-            console.log('tripRecord', tripRecord);
 
             // add event to logger db
             eventLogger(tripRecord, 'requested');
@@ -61,6 +59,7 @@ io.on('connection', socket => {
             // add ride to queue
             rideQueue.push(tripRecord); // we will shift() this out on the front end button click
     
+            // emit 'ride-scheduled' event back to rider
             socket.emit('ride-scheduled', tripRecord);
         } catch {
             console.error();
