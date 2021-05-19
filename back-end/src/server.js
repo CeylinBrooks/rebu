@@ -22,7 +22,7 @@ const Log = require('./auth/models/logger-schema');
 // App Configuration
 const app = express();
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 
 app.use(express.static(clientPath));
 app.use(cors());

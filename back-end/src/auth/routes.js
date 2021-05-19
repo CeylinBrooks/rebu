@@ -12,12 +12,12 @@ authRouter.post('/signup', async (req, res, next) => {
 
   try {
     let user = new User(req.body);
+    console.log(req.body)
     const userRecord = await user.save();
     const output = {
       user: userRecord,
       token: userRecord.token
     };
-
     res.status(201).json({
       status: "success",
       output
@@ -45,10 +45,7 @@ authRouter.post('/signin', basicAuth, (req, res, next) => {
 
     res.cookie('id', req.user._id);
 
-    res.json({
-      status: "success",
-      user
-    });
+    res.redirect('/dashboard')
 
   } catch (e) {
     res.json({
