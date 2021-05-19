@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Chela+One&family=Lato&display=swap');
+
+
+
+body {
+  background-color: rgba(102, 212, 141, 0.996); 
+  margin: 0px auto;
+  width: 375px;
+  text-align: center;
+
+}
+
+#brand {
+  margin: auto;
+  align-content: center;
+  font-family: 'Chela One', cursive;
+  font-size: 100px;
+  color: rgba(23, 110, 80, 0.996);
+  position: relative;
+}
+
+h1{
+  font-size: 30px;
+  font-family: 'Chela One', cursive;
+  padding-bottom: 15px;
+}
+
+span{
+  font-family: 'Chela One', cursive;
+}
+
+#rider{
+  border-radius: 5px;
+  font-family: 'Chela One', cursive;
+
+}
+
+#driver{
+  font-family: 'Chela One', cursive;
+}
+
+p{
+  font-size: 30px;
+  font-family: 'Chela One', cursive;
+
+}
+
+button{
+  display: flex;
+  justify-content: center;
+  font-family: 'Chela One', cursive;
+  color: aliceblue;
+  margin: 50px;
+  margin-left: 110px;
+  padding-bottom: 30px;
+  border-radius: 25px;
+  background: transparent;
+  padding: 20px;
+  position:relative;
+  top:1px;
+  color: rgb(226, 235, 233);
+
+}
+
+input[type=text], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+button :hover{
+  opacity: 30%;
+  cursor: pointer;
+}
+
+img{
+  size: 100px;
+}
+
+.person-icon {text-align: center; 
+    padding: 5px;
+    margin-bottom: 5px;
+    background: none;
+    display: grid;
+}
+
+/* .btn-success{
+  size:1000em;
+ 
+} */
+
+.arrow {
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+}
+.left {
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+}
+
+form{
+  background-color: rgba(102, 212, 141, 0.996); 
+  margin: 0px auto;
+  width: 375px;
+  text-align: center;
+}

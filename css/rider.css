@@ -1,0 +1,122 @@
+/* ThHIS FILE MAY NO LONGER BE NEEDED BUT PLEASE DO NOT DELETE :) 
+
+
+/* *{
+  background-color: rgb(119, 216, 159);
+  font-size: 2em;
+  color: #180773;
+  font-weight: 800;
+  font-family: 'Chela One', cursive;
+}
+
+.fa{
+  box-shadow: 3px;
+}
+
+button{
+  display: flex;
+  justify-content: center;
+  
+  margin: 5px;
+  padding-bottom: 30px;
+  border-radius: 25px;
+  background: transparent;
+  padding: 20px;
+  position:relative;
+  top:1px;
+}
+
+
+
+.btn:hover {
+  opacity: 0.9;
+
+}
+
+
+
+h1{
+  color:rgba(0, 0, 0, 0.45);
+  margin-top: 150px;
+  margin-bottom: 30px;
+  margin-right: 45px;
+  text-align: center;
+  font-size: 30px;
+  font-family: 'Chela One', cursive;
+  position: relative;
+}
+
+
+#start, #end {
+  justify-content: center;
+  margin: 5px;
+  padding-bottom: 30px;
+  border-radius: 25px;
+  background: transparent;
+  padding: 20px;
+  position: relative;
+}
+
+#get-directions{
+  justify-content: center;
+  margin: 5px;
+  padding-bottom: 30px;
+  border-radius: 25px;
+  background: transparent;
+  padding: 20px;
+  position:relative;
+  top:1px;
+}
+
+
+
+
+body { 
+  margin: 0px auto;
+  width: 375px;
+  height: 812px
+}
+#user-input {
+  margin: 5vw;
+}
+
+#start{
+  width: 35vw;
+}
+
+#end {
+  width: 35vw;
+}
+
+
+.alert-info {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: .3em;
+}
+#map{
+  overflow: auto;
+  margin: 3.5vw;
+  width: 80vw;
+  height: 80vw;
+}
+
+#output {
+  text-align: center;
+  font-size: 2em;
+  margin: 20px auto;
+}
+
+.map-section {
+  width: 50vw;
+  height: 50vw
+}
+
+/* .no-close .ui-dialog-titlebar-close {
+  display: none;
+}
+
+#dialog{
+  border: 2px solid black;
+  width: 500px;
+  height: 500px;
+} */ */
