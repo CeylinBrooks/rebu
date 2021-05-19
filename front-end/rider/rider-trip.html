@@ -12,15 +12,17 @@
 </head>
 <body>
   <h1>rider trip</h1>
-  <div id="map" ></div>
-  <div id="output"></div>
+  <div id="map" >map</div>
+  <div id="output">output</div>
   <div id="start-details"></div>
   <div id="end-details"></div>
 
   <script async defer
   src="https://maps.googleapis.com/maps/api/js?v=weekly&key=AIzaSyBtLbow5RiE2qmYmc1iqRcQnKnqfLZalKo=&libraries=geometry,places"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <script defer src="/rider/map.js" ></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script defer src="/rider/trip.js" ></script>
     
 </body>
 </html>
