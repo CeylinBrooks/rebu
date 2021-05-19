@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- <link rel="stylesheet" href="rider.css"> -->
@@ -19,9 +19,9 @@
 
 
   <form id="schedule">
-    <input type="text" placeholder="Start location" required>
-    <input type="text" placeholder="Destination" required>
-    <button type="submit">Schedule pickup</button>
+    <input id="start" type="text" placeholder="Start location" required>
+    <input id="end" type="text" placeholder="Destination" required>
+    <button id="get-directions" type="submit">Schedule pickup</button>
   </form>
   <section>
     <h3>Your past trips:</h3>
@@ -33,11 +33,15 @@
     </ul>
 
   </section>
-
+  
+  <script async defer
+  src="https://maps.googleapis.com/maps/api/js?v=weekly&key=AIzaSyBtLbow5RiE2qmYmc1iqRcQnKnqfLZalKo=&libraries=geometry,places"></script>
+  <!-- <script src=“https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js”></script> -->
+  <!-- <script defer src="/rider/map.js"></script> -->
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script src="/socket.io/socket.io.js"></script>
-  <script src="/rider/dashboard.js"></script>
+  <script defer src="/rider/dashboard.js"></script>
   <script>
     $(function () {
       $("#dialog").dialog({

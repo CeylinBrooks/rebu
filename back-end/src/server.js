@@ -45,6 +45,7 @@ const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 
 io.on('connection', socket => {
+
     // rider emits "ride-scheduled" and pass object with trip info(name, pickup, dropoff, timestamp)
     socket.on('ride-scheduled', async (tripObj) => {
         console.log('ride requested');
@@ -62,6 +63,8 @@ io.on('connection', socket => {
 
             // emit 'ride-scheduled' event back to rider
             socket.emit('ride-scheduled', tripRecord);
+
+
         } catch {
             console.error();
             // res.status(500).json({ err: "error saving trip to db" });
