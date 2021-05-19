@@ -33,7 +33,7 @@ $('#schedule').on('submit', function calcRoute(e) {
     unitSystem: google.maps.UnitSystem.IMPERIAL
   };
 
-
+  
   // TODO: get rider ID (how?)
   // const rider_id = $('');
   const init_time = new Date();
@@ -60,39 +60,56 @@ $('#schedule').on('submit', function calcRoute(e) {
     // window.location.href = "/trip"
     //  TODO: redirect to trip page
   })
+
+  $.ajax({
+    url: "/rider-trip",
+    type: "GET",
+    data: tripObj,
+  }).done(function (response) {
+    if (response.status === "success") {
+        window.location.href = "/rider-trip"
+    } else {
+      console.log(response);
+      }
+    })
+
+  // return request;
 })
 
+$(document).ready(function displayRoute(request) {
+  // e.preventDefault();
 
-const directionsService = new google.maps.DirectionsService();
+  const directionsService = new google.maps.DirectionsService();
 
-directionsService.route(request, function (result, status) {
-  console.log(result);
-  console.log(result.routes[0].overview_path);
-  if (status === 'OK') {
+  directionsService.route(request, function (result, status) {
+    console.log(result);
+    console.log(result.routes[0].overview_path);
+    if (status === 'OK') {
 
-    // initMap(); this needs to move elsewhere
-    const polyCoords = result.routes[0].overview_path;
-    const polyBound = new google.maps.Polyline({
-      path: polyCoords,
-      strokeColor: "#FF0000",
-      strokeOpacity: 0.8,
-      strokeWeight: 2,
-      fillColor: "#FF0000",
-      fillOpacity: 0.35,
-    });
-    polyBound.setMap(map);
+      // initMap(); this needs to move elsewhere
+      const polyCoords = result.routes[0].overview_path;
+      const polyBound = new google.maps.Polyline({
+        path: polyCoords,
+        strokeColor: "#FF0000",
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: "#FF0000",
+        fillOpacity: 0.35,
+      });
+      polyBound.setMap(map);
 
 
-    const cost = ((parseInt(result.routes[0].legs[0].distance.value) / 1609) * 1.75).toFixed(2);
-    console.log(cost);
+      const cost = ((parseInt(result.routes[0].legs[0].distance.value) / 1609) * 1.75).toFixed(2);
+      console.log(cost);
 
-    const output = document.querySelector('#output');
-    output.innerHTML = "<div class='alert-info'>Pick-up: " + start + "<br />Drop-off: " + end + "<br /> Driving distance: <i class='fas fa-road'></i> " + result.routes[0].legs[0].distance.text + "<br />Estimated Duration: <i class='fas fa-hourglass-start'></i> " + result.routes[0].legs[0].duration.text + "<br />Estimated Cost: $" + cost + "</div>";
+      const output = document.querySelector('#output');
+      output.innerHTML = "<div class='alert-info'>Pick-up: " + start + "<br />Drop-off: " + end + "<br /> Driving distance: <i class='fas fa-road'></i> " + result.routes[0].legs[0].distance.text + "<br />Estimated Duration: <i class='fas fa-hourglass-start'></i> " + result.routes[0].legs[0].duration.text + "<br />Estimated Cost: $" + cost + "</div>";
 
-  } else {
-    output.innerHTML = "<div class='alert-danger'><i class='fas fa-exclamation-triangle'></i> Could not retrieve driving distance.</div>";
-  }
-});
+    } else {
+      output.innerHTML = "<div class='alert-danger'><i class='fas fa-exclamation-triangle'></i> Could not retrieve driving distance.</div>";
+    }
+  });
+})
 
 
 var options = {
