@@ -16,8 +16,9 @@ const authRoutes = require('./auth/routes.js');
 const pageRoutes = require("./routes/routes.js");
 
 // DB schema
-const Trip = require('./auth/models/trips-schema.js'); // this should be moved out of Auth dir?
-const Log = require('./auth/models/logger-schema');
+const Trips = require('./auth/models/trips-schema.js'); // this should be moved out of Auth dir?
+const Logs = require('./auth/models/logger-schema.js');
+const Users = require('./auth/models/users-schema.js');
 
 // App Configuration
 const app = express();
@@ -50,7 +51,7 @@ io.on('connection', socket => {
         
         try {
             // add object to trip table
-            const newTrip = new Trip(tripObj);
+            const newTrip = new Trips(tripObj);
             const tripRecord = await newTrip.save()
 
             // add event to logger db
@@ -68,25 +69,37 @@ io.on('connection', socket => {
         
     })
 
-    //driver accepts first ride in queue by clicking "Get New Trip"
-    socket.on('ride-accepted', async (trip) => {
+    // driver accepts first ride in queue by clicking "Get New Trips"
+    socket.on('ride-accepted', async (driver) => {
+        // dequeue item from queue
+        const trip = rideQueue.shift();
+        if (trip === undefined) {
+            console.log( 'NO TRIPS TO GET');
+            return 0;
+        }
+        console.log('trip', trip);
         
-        // dequeue item from queue (on front end?)
+        // Retreive driver _id from db
+        const driverDecoded = decodeURIComponent(driver).split('\"')[1];
+        const driverObj = await Users.findById(driverDecoded);
+        console.log('driverObj', driverObj);
         
-        // TODO: driver_id = driver id (attached on front-end?)
-        const driver_id = trip.driver_id;
-
         // log to logger
-        eventLogger(trip, 'accecpted');
+        eventLogger(trip, 'accepted');
         
         // modify object in trip table
         const time = new Date();
-        await db.trips.updateOne(
-            { 'name': `${trip._id}` },
-            { $set: { 'driver_id': `${driver_id}`, 'accecpt_time': `${time}` } },
-            )
-            // emit ride-accecpted event to rider
-            socket.broadcast.emit('ride-accepted', { trip: trip, name: users[socket.id] })
+        try{
+            const res = await Trips.updateOne(
+                { '_id': `${trip._id}` },
+                { $set: { 'driver_id': `${driverObj._id}`, 'accept_time': time } },
+                );
+            console.log('mongo response' , res);
+                // emit ride-accepted event to rider
+                socket.broadcast.emit('ride-accepted', { trip: trip, name: users[socket.id] })
+            } catch {
+                console.error();
+            }
     })
 
     // after driver accepts ride, new button appears to initiate pickup, on click emits pickup event
@@ -98,7 +111,7 @@ io.on('connection', socket => {
 
         // modify object in trip table
         const time = new Date();
-        await db.trips.updateOne(
+        await Trips.updateOne(
             { 'name': `${trip._id}` },
             { $set: { 'pickup_time': `${time}` } },
         )
@@ -115,7 +128,7 @@ io.on('connection', socket => {
 
         // modify object in trip table
         const time = new Date();
-        await db.trips.updateOne(
+        await Trips.updateOne(
             { 'name': `${trip._id}` },
             { $set: { 'dropoff_time': `${time}` } },
         )
@@ -128,14 +141,14 @@ io.on('connection', socket => {
 
 async function eventLogger(trip, event) {
     // logs trip event to logger db
-    let time = new Date();
-    let logItem = new Log({
-        trip_id: trip._id, // ??? correct? 
+    const time = new Date();
+    const logItem = new Logs({
+        trip_id: trip._id,
         timestamp: time,
         event_type: event
     })
     const logRecord = await logItem.save();
-    console.log('logRecord:', logRecord);
+    console.log('logRecord', logRecord);
 }
 
 module.exports = {
