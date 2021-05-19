@@ -3,7 +3,7 @@
 const start = sessionStorage.getItem('start');
 const end = sessionStorage.getItem('end');
 
-let socket = io('/rebu');
+let socket = io();
 
 socket.on('ride-accepted', (trip) => {
   console.log('ride accepted', trip);

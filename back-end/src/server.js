@@ -44,16 +44,16 @@ const rideQueue = [];
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 
-const rebu = io.of('/rebu');
+// const rebu = io.of('/rebu');
 
-rebu.on('connection', socket => {
-
+io.on('connection', socket => {
+    console.log('Connected to server');
     // rider emits "ride-scheduled" and pass object with trip info(name, pickup, dropoff, timestamp)
-    socket.on('join', room => {
-        console.log('joined room', room);
-        socket.join(room);
+    // socket.on('join', room => {
+    //     console.log('joined room', room);
+    //     socket.join(room);
         
-    });
+    // });
 
     socket.on('ride-scheduled', async (tripObj) => {
         console.log('ride requested');

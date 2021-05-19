@@ -36,14 +36,14 @@ $('#schedule').on('submit', function calcRoute(e) {
     end_loc: end_loc
   }
 
-
-  let socket = io('/rebu');
+  console.log(tripObj);
+  let socket = io();
   socket.emit('ride-scheduled', tripObj);
   socket.on('ride-scheduled', (trip) => {
     console.log('successful scheduling', trip);
   })
   
-  window.location.href = "/trip"
+  // window.location.href = "/trip"
 
 })
 

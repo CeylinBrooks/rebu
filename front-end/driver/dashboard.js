@@ -1,7 +1,7 @@
 'use strict';
 
 const driver = document.cookie;
-const socket = io('/rebu');
+const socket = io();
 let currentTrip;
 
 // accept ride
