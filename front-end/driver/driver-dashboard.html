@@ -1,15 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../css/style.css">
   <title>Driver | Dashboard</title>
 </head>
+
 <body>
   <h1>Driver Dashboard</h1>
-  <form>
-    <button>Get a new trip</button>
+  <form id="accept">
+    <button type="submit">Get a new trip</button>
+  </form>
+  <form id="pickup">
+    <button type="submit">Pickup passenger (this button should be hidden until trip accepted)</button>
+  </form>
+  <form id="dropoff">
+    <button type="submit">Dropoff passenger (this button should be hidden until pickup)</button>
   </form>
   <section>
     <h3>Your past trips:</h3>
@@ -21,7 +30,11 @@
     </ul>
 
   </section>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/driver/dashboard.js"></script>
 
-  
 </body>
+
 </html>

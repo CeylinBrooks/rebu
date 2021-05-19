@@ -22,32 +22,34 @@ pages.get('/dashboard', cookieParser, (req, res) => {
     // if-else to server driver-dash or rider-dash or admin-dash html
     // not sure if this is best method but it seems to work -brs 
     if (req.user.role === 'driver') {
-        res.send('DRIVER Dash')
+        res.sendFile("/driver/driver-dashboard.html", { root: clientPath });
     } else if (req.user.role === 'rider') {
-        res.send('RIDER Dash')
-    }else if (req.user.role === 'admin') {
-        res.send('ADMIN Dash')
+        res.sendFile("/rider/rider-dashboard.html", { root: clientPath });
+    } else if (req.user.role === 'admin') {
+        res.sendFile("/admin/admin-dashboard.html", { root: clientPath });
     }
-    // res.sendFile("dashboard.html", { root: clientPath });
-    // res.status(200).send('this will be the dashboard');
 })
 
 pages.get('/about', (req, res) => {
-    res.sendFile("about.html", {root: clientPath});
+    res.sendFile("about.html", { root: clientPath });
 })
 
-pages.get('/trip', (req, res) => {
+pages.get('/trip', cookieParser, (req, res) => {
     // if-else to serve driver-trip or rider-trip html
-    res.send('trips page');
+    if (req.user.role === 'driver') {
+        res.sendFile("/driver/driver-trip.html", { root: clientPath });
+    } else if (req.user.role === 'rider') {
+        res.sendFile("/rider/rider-trip.html", { root: clientPath });
+    }
 })
 
-pages.post('/dashboard', (req, res) => {
+pages.post('/dashboard', cookieParser, (req, res) => {
     // rider requests ride, emits 'ride-scheduled' event
     // redirects to rider trip page
     res.send('post to dashboard');
 })
 
-pages.put('/dashboard', (req, res) => {
+pages.put('/dashboard', cookieParser, (req, res) => {
     // driver completes trip. emits 'dropoff', redirects to driver dashboard
     res.send('this is the put on dashboard');
 })
