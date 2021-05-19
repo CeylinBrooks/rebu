@@ -119,19 +119,19 @@ io.on('connection', socket => {
     // after driver accepts ride, new button appears to initiate pickup, on click emits pickup event
     socket.on('pickup', async (trip) => {
 
-
         // log to logger
         eventLogger(trip, 'pickup');
 
         // modify object in trip table
         const time = new Date();
         await Trips.updateOne(
-            { 'name': `${trip._id}` },
+            { '_id': `${trip._id}` },
             { $set: { 'pickup_time': `${time}` } },
         )
 
-        // rider listens and maybe add notification of pickup
-        socket.broadcast.emit('pickup', { trip: trip, name: users[socket.id] })
+        const updatedTrip = await Trips.findById(trip._id);
+        // rider listens and maybe add notification of pickup TODO:
+        socket.emit('pickup', updatedTrip);
     })
 
     // after driver inititiate pickup, new button appears for dropoff, on click, emits dropoff event
