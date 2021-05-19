@@ -48,7 +48,7 @@ io.on('connection', socket => {
     // rider emits "ride-scheduled" and pass object with trip info(name, pickup, dropoff, timestamp)
     socket.on('ride-scheduled', async (tripObj) => {
         console.log('ride requested');
-        
+
         try {
             // add object to trip table
             const newTrip = new Trips(tripObj);
@@ -59,47 +59,61 @@ io.on('connection', socket => {
 
             // add ride to queue
             rideQueue.push(tripRecord); // we will shift() this out on the front end button click
-    
+
             // emit 'ride-scheduled' event back to rider
             socket.emit('ride-scheduled', tripRecord);
         } catch {
             console.error();
             // res.status(500).json({ err: "error saving trip to db" });
         }
-        
+
     })
 
     // driver accepts first ride in queue by clicking "Get New Trips"
     socket.on('ride-accepted', async (driver) => {
         // dequeue item from queue
-        const trip = rideQueue.shift();
+        // const trip = rideQueue.shift(); TODO: !!!!!! this is REAL
+        const trip = {
+            _id: '60a47f93818e68b4c5ef6a53',
+            rider_id: 'TEST',
+            driver_id: 'NULL',
+            init_time: '2021-05-19T03:01:39.715Z',
+            accept_time: 'NULL',
+            pickup_time: 'NULL',
+            dropoff_time: 'NULL',
+            start_loc: 'TEST',
+            end_loc: 'TEST',
+            __v: 0
+        }; // !!!!! THIS IS DEV 
+
         if (trip === undefined) {
-            console.log( 'NO TRIPS TO GET');
+            console.log('NO TRIPS TO GET');
             return 0;
         }
         console.log('trip', trip);
-        
+
         // Retreive driver _id from db
         const driverDecoded = decodeURIComponent(driver).split('\"')[1];
         const driverObj = await Users.findById(driverDecoded);
         console.log('driverObj', driverObj);
-        
+
         // log to logger
         eventLogger(trip, 'accepted');
-        
+
         // modify object in trip table
         const time = new Date();
-        try{
+        try {
             const res = await Trips.updateOne(
                 { '_id': `${trip._id}` },
                 { $set: { 'driver_id': `${driverObj._id}`, 'accept_time': time } },
-                );
-            console.log('mongo response' , res);
-                // emit ride-accepted event to rider
-                socket.broadcast.emit('ride-accepted', { trip: trip, name: users[socket.id] })
-            } catch {
-                console.error();
-            }
+            );
+            console.log('mongo response', res);
+            const updatedTrip = await Trips.findById(trip._id);
+            // emit ride-accepted event to rider
+            socket.emit('ride-accepted', updatedTrip);
+        } catch {
+            console.error();
+        }
     })
 
     // after driver accepts ride, new button appears to initiate pickup, on click emits pickup event
