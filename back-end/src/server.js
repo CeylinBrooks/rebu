@@ -126,7 +126,7 @@ io.on('connection', socket => {
         const time = new Date();
         await Trips.updateOne(
             { '_id': `${trip._id}` },
-            { $set: { 'pickup_time': `${time}` } },
+            { $set: { 'pickup_time': time } },
         )
 
         const updatedTrip = await Trips.findById(trip._id);
@@ -143,12 +143,13 @@ io.on('connection', socket => {
         // modify object in trip table
         const time = new Date();
         await Trips.updateOne(
-            { 'name': `${trip._id}` },
-            { $set: { 'dropoff_time': `${time}` } },
+            { '_id': `${trip._id}` },
+            { $set: { 'dropoff_time': time } },
         )
 
+        const updatedTrip = await Trips.findById(trip._id);
         // rider listens for event and displays final trip info
-        socket.broadcast.emit('dropoff', { trip: trip, name: users[socket.id] })
+        socket.emit('dropoff', updatedTrip)
     })
 
 })

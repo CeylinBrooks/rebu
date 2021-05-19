@@ -23,6 +23,18 @@ $('#pickup').on('submit', function (e) {
   socket.emit('pickup', currentTrip);
   socket.on('pickup', (trip) => {
     console.log('picked up passenger', trip);
+    currentTrip = trip;
+    // TODO: redirect to trip page
+  })
+})
+
+// dropoff ride
+$('#dropoff').on('submit', function (e) {
+  e.preventDefault();
+
+  socket.emit('dropoff', currentTrip);
+  socket.on('dropoff', (trip) => {
+    console.log('dropped off passenger', trip);
     // TODO: redirect to trip page
   })
 })
