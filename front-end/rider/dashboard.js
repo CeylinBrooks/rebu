@@ -21,7 +21,7 @@ $('#schedule').on('submit', function (e) {
   e.preventDefault();
 
   // TODO: Dan fills in below from google-maps api
-  
+
   // const rider_id = ;
   const init_time = new Date();
   // const start_loc = ;
@@ -31,19 +31,19 @@ $('#schedule').on('submit', function (e) {
     rider_id: 'TEST',
     driver_id: 'NULL',
     init_time: init_time,
-    accecpt_time: 'NULL',
+    accept_time: 'NULL',
     pickup_time: 'NULL',
     dropoff_time: 'NULL',
     start_loc: 'TEST',
-    end_loc: 'TEST' 
-   }
+    end_loc: 'TEST'
+  }
 
 
-   let socket = io();
-   socket.emit('ride-scheduled', tripObj);
-   socket.on('ride-scheduled', (trip) => {
-    //  window.location.href = "/dashboard"
-     console.log('successful scheduling', trip);
+  let socket = io();
+  socket.emit('ride-scheduled', tripObj);
+  socket.on('ride-scheduled', (trip) => {
+    console.log('successful scheduling', trip);
+    window.location.href = "/trip"
     //  TODO: redirect to trip page
-   })
   })
+})
