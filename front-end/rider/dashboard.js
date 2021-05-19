@@ -1,7 +1,5 @@
 'use strict'
 
-
-
 // // grab user loc
 // function getLocation() {
 //   navigator.geolocation.getCurrentPosition(function (position) {
@@ -21,15 +19,14 @@ $('#schedule').on('submit', function calcRoute(e) {
   sessionStorage.setItem('start', start);
   sessionStorage.setItem('end', end);
 
-  // TODO: get rider ID (how?)
-  // const rider_id = $('');
+  const rider = document.cookie;
+  const rider_id = decodeURIComponent(rider).split('\"')[1];
   const init_time = new Date();
   const start_loc = start;
-  console.log(start_loc);
   const end_loc = end;
 
   const tripObj = {
-    rider_id: 'TEST',
+    rider_id: rider_id,
     driver_id: 'NULL',
     init_time: init_time,
     accept_time: 'NULL',
@@ -44,8 +41,8 @@ $('#schedule').on('submit', function calcRoute(e) {
   socket.emit('ride-scheduled', tripObj);
   socket.on('ride-scheduled', (trip) => {
     console.log('successful scheduling', trip);
-    //  TODO: redirect to trip page
   })
+  
   window.location.href = "/trip"
 
 })
