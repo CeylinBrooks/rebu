@@ -85,24 +85,10 @@ io.on('connection', socket => {
         // dequeue item from queue
         const trip = rideQueue.shift();
         console.log({ trip });
-       
-
-        // TODO: !!!!!! this is REAL
-        // const trip = {
-        //     _id: '60a47f93818e68b4c5ef6a53',
-        //     rider_id: 'TEST',
-        //     driver_id: 'NULL',
-        //     init_time: '2021-05-19T03:01:39.715Z',
-        //     accept_time: 'NULL',
-        //     pickup_time: 'NULL',
-        //     dropoff_time: 'NULL',
-        //     start_loc: 'TEST',
-        //     end_loc: 'TEST',
-        //     __v: 0
-        // }; // !!!!! THIS IS DEV 
 
         if (trip === undefined) {
             console.log('NO TRIPS TO GET');
+            socket.emit('no-trips');
             return 0;
             // TODO: Post MVP, add message to send to Driver
         }

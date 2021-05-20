@@ -14,9 +14,6 @@ socket.on('ride-accepted', (trip) => {
     const output= document.getElementById('messages');
     const time = Math.ceil(Math.random() * 10);
     output.innerHTML=`<p>Driver Accepted Your Trip and is ${time} minutes away</p>`;
-    // setTimeout(function() {
-    //   output.innerHTML= '';
-    // }, 2000)
   }
 })
 
