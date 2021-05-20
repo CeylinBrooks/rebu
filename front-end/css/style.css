@@ -1,0 +1,163 @@
+@import url('https://fonts.googleapis.com/css2?family=Chela+One&family=Lato&display=swap');
+
+html{
+  width: 375px;
+}
+
+body {
+  background-color: rgba(102, 212, 141, 0.996); 
+  margin: 0px auto;
+  width: 375px;
+  text-align: center;
+
+}
+#map{
+  height: 84vw;
+  width: 84vw;
+  margin: 7vw;
+  overflow: auto;
+  border: 2px, solid, black;
+}
+#brand {
+  margin: auto;
+  align-content: center;
+  font-family: 'Chela One', cursive;
+  font-size: 1em;
+  color: rgba(23, 110, 80, 0.996);
+  position: relative;
+}
+
+h1{
+  font-size: ;
+  font-family: 'Chela One', cursive;
+  padding-top: 10px;
+  padding-bottom: 15px;
+}
+
+span{
+  font-family: 'Chela One', cursive;
+}
+
+#rider{
+  border-radius: 5px;
+  font-family: 'Chela One', cursive;
+
+}
+
+#driver{
+  font-family: 'Chela One', cursive;
+}
+
+p{
+  font-size: 30px;
+  font-family: 'Chela One', cursive;
+
+}
+
+.button-style{
+  display: flex;
+  justify-content: center;
+  font-family: 'Chela One', cursive;
+  color: aliceblue;
+  margin: 50px;
+  margin-left: 110px;
+  padding-bottom: 30px;
+  border-radius: 25px;
+  background: transparent;
+  padding: 20px;
+  position:relative;
+  top:1px;
+  color: rgb(226, 235, 233);
+
+}
+
+input[type=text], input[type=password], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+button :hover{
+  opacity: 30%;
+  cursor: pointer;
+}
+
+img{
+  size: 100px;
+}
+
+.person-icon {text-align: center; 
+    padding: 5px;
+    margin-bottom: 5px;
+    background: none;
+    display: grid;
+}
+
+/* .btn-success{
+  size:1000em;
+ 
+} */
+
+.arrow {
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+}
+.left {
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+}
+
+form{
+  background-color: rgba(102, 212, 141, 0.996); 
+  margin: 0px auto;
+  width: 375px;
+  text-align: center;
+}
+
+.bio-pic {
+  border-radius: 50%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+.opener{
+  width: 30px;
+  border-radius: 0%;
+  float: right;
+}
+
+.ui-dialog {
+  border:5px solid #458C5E;   /** change css properties to match your theme*/
+  background-color: #F2F2F2 !important;
+  height: 100px;
+}
+
+.ui-dialog-content{
+  color: black;
+}
+
+.ui-dialog-titlebar {
+background-color:  #458C5E;
+height: 20px;
+text-align: left;
+
+}
+
+.dialog p{
+  font-size: 20px;
+}
+.dialog button{
+  width: 100%;
+}
+
+.ui-dialog-titlebar-close{
+  display: none;
+}
