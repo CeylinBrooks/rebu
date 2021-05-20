@@ -44,9 +44,17 @@ const rideQueue = [];
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 
-io.on('connection', socket => {
+// const rebu = io.of('/rebu');
 
+io.on('connection', socket => {
+    console.log('Connected to server');
     // rider emits "ride-scheduled" and pass object with trip info(name, pickup, dropoff, timestamp)
+    socket.on('join', room => {
+        console.log('joined room', room);
+        socket.join(room);
+        
+    });
+
     socket.on('ride-scheduled', async (tripObj) => {
         console.log('ride requested');
 
@@ -75,23 +83,14 @@ io.on('connection', socket => {
     // driver accepts first ride in queue by clicking "Get New Trips"
     socket.on('ride-accepted', async (driver) => {
         // dequeue item from queue
-        // const trip = rideQueue.shift(); TODO: !!!!!! this is REAL
-        const trip = {
-            _id: '60a47f93818e68b4c5ef6a53',
-            rider_id: 'TEST',
-            driver_id: 'NULL',
-            init_time: '2021-05-19T03:01:39.715Z',
-            accept_time: 'NULL',
-            pickup_time: 'NULL',
-            dropoff_time: 'NULL',
-            start_loc: 'TEST',
-            end_loc: 'TEST',
-            __v: 0
-        }; // !!!!! THIS IS DEV 
+        const trip = rideQueue.shift();
+        console.log({ trip });
 
         if (trip === undefined) {
             console.log('NO TRIPS TO GET');
+            socket.emit('no-trips');
             return 0;
+            // TODO: Post MVP, add message to send to Driver
         }
         console.log('trip', trip);
 
@@ -113,7 +112,10 @@ io.on('connection', socket => {
             console.log('mongo response', res);
             const updatedTrip = await Trips.findById(trip._id);
             // emit ride-accepted event to rider
+            socket.to(`${trip._id}`).emit('ride-accepted', updatedTrip);
             socket.emit('ride-accepted', updatedTrip);
+            // rebu.to(updatedTrip.rider_id).emit('ride-accepted', updatedTrip);
+
         } catch {
             console.error();
         }
@@ -133,6 +135,7 @@ io.on('connection', socket => {
         )
 
         const updatedTrip = await Trips.findById(trip._id);
+        socket.to(`${trip._id}`).emit('pickup', updatedTrip);
         // rider listens and maybe add notification of pickup TODO:
         socket.emit('pickup', updatedTrip);
     })
@@ -151,6 +154,7 @@ io.on('connection', socket => {
         )
 
         const updatedTrip = await Trips.findById(trip._id);
+        socket.to(`${trip._id}`).emit('dropoff', updatedTrip);
         // rider listens for event and displays final trip info
         socket.emit('dropoff', updatedTrip)
     })

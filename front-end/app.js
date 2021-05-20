@@ -1,4 +1,4 @@
-
+// Sign up
 $("#signup").on("submit", function (e) {
   e.preventDefault();
 
@@ -7,39 +7,35 @@ $("#signup").on("submit", function (e) {
   const role = $('input[name="role"]:checked').val();
 
   const userObj = {
-      username,
-      password,
-      role
+    username: username,
+    password: password,
+    role: role
   }
 
   $.ajax({
-      url: "/signup",
-      type: "POST",
-      data: userObj,
+    url: "/signup",
+    type: "POST",
+    data: userObj,
   }).done(function (response) {
-      if (response.status === "success") {
-          window.location.href = "/signin"
-      } else if(response.error.includes('duplicate')){
-        alert('This username is already exists')
-      } else {
-        alert('Something went wrong')
-      }
+    if (response.status === "success") {
+      window.location.href = "/signin"
+    } else if (response.error.includes('duplicate')) {
+      alert('This username is already exists')
+    } else {
+      alert('Something went wrong')
+    }
   })
 })
 
 
-//Sign in
-
+// Sign in
 $("#signin").on("submit", function (e) {
   e.preventDefault();
 
   const username = $("#username").val();
   const password = $("#password").val();
-  // console.log(username)
-  // console.log(password)
 
   const encoded = btoa(`${username}:${password}`);
-  // console.log(encoded)
 
   $.ajax({
     type: "POST",
@@ -47,13 +43,13 @@ $("#signin").on("submit", function (e) {
     xhrFields: { withCredentials: true },
     headers: {
       authorization: `Basic ${encoded}`
-  },
-  }).done(function(){
+    },
+  }).done(function () {
     window.location.href = "/dashboard"
   })
-  .fail(function(){
-    alert('Error!')
-  });
+    .fail(function () {
+      alert('Error!')
+    });
 
 });
 
