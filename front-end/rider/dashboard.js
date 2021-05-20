@@ -120,7 +120,7 @@ $(function () {
     trips.map(trip => {
       console.log(trip);
       // append each log item to logs list
-      $("#rider-history").append(`<li> Time: ${trip.init_time} <br> To ${trip.end_loc}</li>`);
+      $("#rider-history").append(`<li> <b>Time:</b> ${trip.init_time} <br> <b>To</b> ${trip.end_loc}</li>`);
     })
   })
 })

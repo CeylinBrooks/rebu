@@ -1,19 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Chela+One&family=Lato&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@700&display=swap');
 
 html{
   width: 375px;
+  margin: auto;
+  background: gainsboro;
 }
 
 body {
-  background-color: rgba(102, 212, 141, 0.996); 
+  background-color: 	rgb(0, 168, 138); 
   margin: 0px auto;
-  width: 375px;
+  /* max-width: 375px; */
   text-align: center;
-
+  box-sizing: border-box;
+  min-height: 100vh;
 }
 #map{
-  height: 84vw;
-  width: 84vw;
+  height: 90%;
+  width: 90%;
   margin: 7vw;
   overflow: auto;
   border: 2px, solid, black;
@@ -22,20 +26,22 @@ body {
   margin: auto;
   align-content: center;
   font-family: 'Chela One', cursive;
-  font-size: 1em;
-  color: rgba(23, 110, 80, 0.996);
-  position: relative;
+  font-size: 4em;
+  letter-spacing: 0.1em;
+  color: white;
+  padding-top: 30vh;
 }
 
 h1{
-  font-size: ;
-  font-family: 'Chela One', cursive;
-  padding-top: 10px;
+  /* font-size: ; */
+  font-family: 'Raleway', sans-serif;
+  padding-top: 10vh;
   padding-bottom: 15px;
+  color: white;
 }
 
 span{
-  font-family: 'Chela One', cursive;
+  font-family: 'Raleway', sans-serif;
 }
 
 #rider{
@@ -54,11 +60,16 @@ p{
 
 }
 
+.button{
+  background-color: white;
+  color:rgb(0, 168, 138); 
+}
+
 .button-style{
   display: flex;
   justify-content: center;
-  font-family: 'Chela One', cursive;
-  color: aliceblue;
+  font-family: 'Raleway', sans-serif;
+  color: white;
   margin: 50px;
   margin-left: 110px;
   padding-bottom: 30px;
@@ -67,7 +78,6 @@ p{
   padding: 20px;
   position:relative;
   top:1px;
-  color: rgb(226, 235, 233);
 
 }
 
@@ -81,9 +91,10 @@ input[type=text], input[type=password], select {
   box-sizing: border-box;
 }
 
-button :hover{
-  opacity: 30%;
+.button:hover{
+  background-color: rgba(255, 255, 255, 0.7);
   cursor: pointer;
+  color:rgb(0, 168, 138)
 }
 
 img{
@@ -97,11 +108,6 @@ img{
     display: grid;
 }
 
-/* .btn-success{
-  size:1000em;
- 
-} */
-
 .arrow {
   border: solid black;
   border-width: 0 3px 3px 0;
@@ -114,9 +120,9 @@ img{
 }
 
 form{
-  background-color: rgba(102, 212, 141, 0.996); 
-  margin: 0px auto;
-  width: 375px;
+  background-color:rgb(0, 168, 138);
+  margin: 15px;
+  /* width: 375px; */
   text-align: center;
 }
 
@@ -131,6 +137,7 @@ form{
 .opener{
   width: 30px;
   border-radius: 0%;
+  margin: 14px;
   float: right;
 }
 
@@ -160,4 +167,23 @@ text-align: left;
 
 .ui-dialog-titlebar-close{
   display: none;
+}
+
+.history{
+  margin: 110px 12px 0px ;
+  list-style-type: none;
+  overflow: auto;
+  height: 350px;
+}
+
+.history li {
+  margin-top: 14px;
+  color: #f2f2f2;
+  font-size: large;
+  text-align: left;
+  margin-left: 14px;
+}
+
+#log{
+  height: 500px;
 }

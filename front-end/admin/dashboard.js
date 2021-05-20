@@ -11,7 +11,7 @@ $(function () {
     logs.map(log => {
       console.log(log);
       // append each log item to logs list
-      $("#log").append(`<li> ID: ${log._id} <br> Time: ${log.timestamp} <br> Event: ${log.event_type}</li>`);
+      $("#log").append(`<li> <b>ID:</b> ${log._id} <br> <b>Time:</b> ${log.timestamp} <br> <b>Event:</b> ${log.event_type}</li>`);
     })
   })
 })
