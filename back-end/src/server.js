@@ -22,12 +22,12 @@ const Users = require('./auth/models/users-schema.js');
 
 // App Configuration
 const app = express();
+app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use(express.static(clientPath));
 app.use(cors());
-app.use(morgan('dev'));
 app.use(cookieParser());
 
 // Routers
@@ -159,6 +159,12 @@ io.on('connection', socket => {
         socket.emit('dropoff', updatedTrip)
     })
 
+    // get logs items from db, return on get-logs event
+    socket.on('get-logs', async (id) => {
+        const logs = await Logs.find();
+        console.log(logs);
+        socket.emit('get-logs', logs);
+    })
 })
 
 async function eventLogger(trip, event) {

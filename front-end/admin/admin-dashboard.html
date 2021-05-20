@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,24 +8,19 @@
   <link rel="stylesheet" href="../css/style.css">
   <title>Admin | Dashboard</title>
 </head>
+
 <body>
   <h1>Admin dashboard</h1>
 
   <section>
     <h2>Trip event log</h2>
-
-    <ul id="log">
-      <li>Ride requested 43oijdeijni</li>
-      <li>Ride pickup ij3uedijiej</li>
-      <li>Ride ended njnxjnnkw3</li>
-      <li>Ride requested 43oijdeijni</li>
-      <li>Ride pickup ij3uedijiej</li>
-      <li>Ride ended njnxjnnkw3</li>
-      <li>Ride requested 43oijdeijni</li>
-      <li>Ride pickup ij3uedijiej</li>
-      <li>Ride ended njnxjnnkw3</li>
-    </ul>
+    <p></p>
+    <ul id="log"></ul>
   </section>
-  
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/admin/dashboard.js"></script>
 </body>
+
 </html>
