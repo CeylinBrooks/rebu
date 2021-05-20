@@ -1,8 +1,9 @@
 'use strict';
 
 const driver = document.cookie;
-let socket = io();
+const socket = io();
 let currentTrip;
+
 
 // accept ride
 $('#accept').on('submit', function (e) {
@@ -11,6 +12,7 @@ $('#accept').on('submit', function (e) {
   socket.emit('ride-accepted', driver);
   socket.on('ride-accepted', (trip) => {
     console.log('accepted trip', trip);
+
     currentTrip = trip;
     // TODO: redirect to trip page
   })
