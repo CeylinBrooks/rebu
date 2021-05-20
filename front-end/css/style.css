@@ -16,9 +16,9 @@ body {
   min-height: 100vh;
 }
 #map{
-  height: 90%;
-  width: 90%;
-  margin: 7vw;
+  height: 347px;
+  width: 347px;
+  margin: 14px;
   overflow: auto;
   border: 2px, solid, black;
 }
@@ -35,7 +35,7 @@ body {
 h1{
   /* font-size: ; */
   font-family: 'Raleway', sans-serif;
-  padding-top: 10vh;
+  padding-top: 60px;
   padding-bottom: 15px;
   color: white;
 }
@@ -54,10 +54,13 @@ span{
   font-family: 'Chela One', cursive;
 }
 
-p{
+#messages{
   font-size: 30px;
-  font-family: 'Chela One', cursive;
-
+  font-family: 'Raleway', sans-serif;
+  color: rgb(0, 168, 138);
+  background-color: #f2f2f2;
+  border-radius: 6px;
+  margin: 14px;
 }
 
 .button{
@@ -131,6 +134,7 @@ form{
   display: block;
   margin-left: auto;
   margin-right: auto;
+  margin-top: 14px;
   width: 50%;
 }
 
@@ -142,20 +146,28 @@ form{
 }
 
 .ui-dialog {
-  border:5px solid #458C5E;   /** change css properties to match your theme*/
-  background-color: #F2F2F2 !important;
+  border:5px solid #0054a8;  /** change css properties to match your theme*/
+  background-color: white !important;
   height: 100px;
+  border-radius: 4px;
 }
 
 .ui-dialog-content{
   color: black;
 }
 
-.ui-dialog-titlebar {
-background-color:  #458C5E;
-height: 20px;
-text-align: left;
+.ui-button{
+  background-color: white;
+  margin: 4px;
+  border-radius: 4px;
+}
 
+.ui-dialog-titlebar {
+background-color: #0054a8;
+height: 50px;
+text-align: center;
+font-size: 2em;
+color: white;
 }
 
 .dialog p{
@@ -186,4 +198,31 @@ text-align: left;
 
 #log{
   height: 500px;
+}
+
+.alert-info {
+  text-align: center;
+  margin: 20px auto;
+  padding-top: 10px;
+  background-color:rgb(0, 168, 138);
+  color: white;
+}
+.alert-info h4{
+  font-size: 1em;
+}
+
+.back{
+  margin: 14px ;
+  float: left;
+}
+
+.social{
+  font-size: 2em;
+  font-family: 'Raleway', sans-serif;
+  color: #333;
+}
+
+.about-us h2{
+  font-size: 1.5em;
+  color: #333;
 }

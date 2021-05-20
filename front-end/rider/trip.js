@@ -29,7 +29,7 @@ socket.on('dropoff', (trip)=> {
   console.log('dropoff', trip);
   if(trip) {
     const output= document.getElementById('messages');
-    output.innerHTML=`<p>Your ride has ended, pease exit the car</p>`;
+    output.innerHTML=`<p>Your ride has ended, please exit the car</p>`;
     setTimeout(function(){
       window.location.href = '/dashboard';
 
@@ -85,11 +85,11 @@ setTimeout(() => {
       const output = document.querySelector('#output');
       output.innerHTML = 
       `<div class='alert-info'> 
-        <h4 id='pick-up'>Pick-up: ${start}</h4>
-        <h4 id='drop-off'>Drop-off: ${end} </h4>
-        <h4 id='drive-distance'>Driving distance: ${result.routes[0].legs[0].distance.text} </h4>
-        <h4 id='duration'>Estimated Duration: ${result.routes[0].legs[0].duration.text}</h4>
-        <h4 id='ess-cost'>Estimated Cost: $${cost} </h4>
+        <h4 id='pick-up'><b>Pick-up:</b> ${start}</h4>
+        <h4 id='drop-off'><b>Drop-off:</b> ${end} </h4>
+        <h4 id='drive-distance'><b>Driving distance:</b> ${result.routes[0].legs[0].distance.text} </h4>
+        <h4 id='duration'><b>Estimated Duration:</b> ${result.routes[0].legs[0].duration.text}</h4>
+        <h4 id='ess-cost'><b>Estimated Cost:</b> $${cost} </h4>
       </div>`;
 
     } else {
