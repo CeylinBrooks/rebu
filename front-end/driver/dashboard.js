@@ -3,7 +3,7 @@
 // get driver ID from client cookie
 const driver = document.cookie;
 const socket = io();
-let currentTrip;
+
 
 
 // accept ride
@@ -14,8 +14,10 @@ $('#accept').on('submit', function (e) {
   socket.emit('ride-accepted', driver);
   // upon confirmation from server, save trip info to local storage
   socket.on('ride-accepted', (trip) => {
-    sessionStorage.setItem('trip_id', trip._id)
-    sessionStorage.setItem('trip', JSON.stringify(trip))
+    sessionStorage.setItem('trip_id', trip._id);
+    sessionStorage.setItem('start', trip.start_loc);
+    sessionStorage.setItem('end', trip.end_loc);
+    sessionStorage.setItem('trip', JSON.stringify(trip));
     window.location.href = "/trip"
   })
 
@@ -26,33 +28,7 @@ $('#accept').on('submit', function (e) {
   })
 })
 
-// pickup ride
-$('#pickup').on('submit', function (e) {
-  e.preventDefault();
-  // get trip info from local storage
-  const currentTripStr = sessionStorage.getItem('trip');
-  currentTrip = JSON.parse(currentTripStr);
 
-  // emit pickup event to server
-  socket.emit('pickup', currentTrip);
-  // upon confirmation, log current trip status
-  socket.on('pickup', (trip) => {
-    console.log('picked up passenger', trip);
-    currentTrip = trip;
-  })
-})
-
-// dropoff ride
-$('#dropoff').on('submit', function (e) {
-  e.preventDefault();
-
-  socket.emit('dropoff', currentTrip);
-  socket.on('dropoff', (trip) => {
-    console.log('dropped off passenger', trip);
-    window.alert('success!')
-    window.location.href = '/dashboard';
-  })
-})
 
 // get history
 $(function () {
