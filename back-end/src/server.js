@@ -52,7 +52,7 @@ io.on('connection', socket => {
     socket.on('join', room => {
         console.log('joined room', room);
         socket.join(room);
-        
+
     });
 
     socket.on('ride-scheduled', async (tripObj) => {
@@ -159,10 +159,24 @@ io.on('connection', socket => {
         socket.emit('dropoff', updatedTrip)
     })
 
-    // get logs items from db, return on get-logs event
-    socket.on('get-logs', async (id) => {
-        const logs = await Logs.find().limit(10).sort( {timestamp: -1});
-        socket.emit('get-logs', logs);
+    // get logs items from db, return on admin-logs event
+    socket.on('admin-logs', async () => {
+        const logs = await Logs.find().limit(10).sort({ _id: -1 });
+        socket.emit('admin-logs', logs);
+    })
+
+    // driver history:
+    socket.on('driver-history', async (id) => {
+        const driverDecoded = decodeURIComponent(id).split('\"')[1];
+        const history = await Trips.find({ driver_id: driverDecoded }).limit(5).sort({ _id: -1 });
+        socket.emit('driver-history', history);
+    })
+
+    // rider history:
+    socket.on('rider-history', async (id) => {
+        const riderDecoded = decodeURIComponent(id).split('\"')[1];
+        const history = await Trips.find({ rider_id: riderDecoded }).limit(5).sort({ _id: -1 });
+        socket.emit('rider-history', history);
     })
 })
 

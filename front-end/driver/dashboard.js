@@ -53,3 +53,18 @@ $('#dropoff').on('submit', function (e) {
     window.location.href = '/dashboard';
   })
 })
+
+// get history
+$(function () {
+  // send driver-history event to server
+  socket.emit('driver-history', driver)
+  // upon receipt, populate list with log objects 
+  socket.on('driver-history', (trips) => {
+    console.log(trips);
+    trips.map(trip => {
+      console.log(trip);
+      // append each log item to logs list
+      $("#driver-history").append(`<li> Time: ${trip.init_time} <br> To ${trip.end_loc}</li>`);
+    })
+  })
+})
