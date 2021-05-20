@@ -161,8 +161,7 @@ io.on('connection', socket => {
 
     // get logs items from db, return on get-logs event
     socket.on('get-logs', async (id) => {
-        const logs = await Logs.find();
-        console.log(logs);
+        const logs = await Logs.find().limit(10).sort( {timestamp: -1});
         socket.emit('get-logs', logs);
     })
 })
