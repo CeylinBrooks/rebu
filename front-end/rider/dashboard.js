@@ -1,5 +1,9 @@
 'use strict'
 
+// get rider ID from client cookie
+const rider = document.cookie;
+const socket = io();
+
 // // grab user loc
 // function getLocation() {
 //   navigator.geolocation.getCurrentPosition(function (position) {
@@ -105,3 +109,18 @@ function onPlaceChanged() {
 //     console.log(err);
 //   });
 // }
+
+// get history
+$(function () {
+  // send rider-history event to server
+  socket.emit('rider-history', rider)
+  // upon receipt, populate list with log objects 
+  socket.on('rider-history', (trips) => {
+    console.log(trips);
+    trips.map(trip => {
+      console.log(trip);
+      // append each log item to logs list
+      $("#rider-history").append(`<li> Time: ${trip.init_time} <br> To ${trip.end_loc}</li>`);
+    })
+  })
+})
