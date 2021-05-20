@@ -41,9 +41,14 @@ $('#schedule').on('submit', function calcRoute(e) {
   socket.emit('ride-scheduled', tripObj);
   socket.on('ride-scheduled', (trip) => {
     console.log('successful scheduling', trip);
+    sessionStorage.setItem('trip_id', trip._id)
   })
   
-  // window.location.href = "/trip"
+  // TODO: defer this so that everything else finishes first
+  setTimeout(function () {
+
+    window.location.href = "/trip"
+  }, 1000)
 
 })
 

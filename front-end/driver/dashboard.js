@@ -4,6 +4,7 @@ const driver = document.cookie;
 const socket = io();
 let currentTrip;
 
+
 // accept ride
 $('#accept').on('submit', function (e) {
   e.preventDefault();
@@ -11,6 +12,7 @@ $('#accept').on('submit', function (e) {
   socket.emit('ride-accepted', driver);
   socket.on('ride-accepted', (trip) => {
     console.log('accepted trip', trip);
+
     currentTrip = trip;
     // TODO: redirect to trip page
   })

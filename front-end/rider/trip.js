@@ -2,11 +2,42 @@
 
 const start = sessionStorage.getItem('start');
 const end = sessionStorage.getItem('end');
+const tripId = sessionStorage.getItem('trip_id');
 
 let socket = io();
 
+socket.emit('join', tripId);
+
 socket.on('ride-accepted', (trip) => {
   console.log('ride accepted', trip);
+  if(trip) {
+    const output= document.getElementById('messages');
+    const time = Math.ceil(Math.random() * 10);
+    output.innerHTML=`<p>Driver Accepted Your Trip and is ${time} minutes away</p>`;
+    // setTimeout(function() {
+    //   output.innerHTML= '';
+    // }, 2000)
+  }
+})
+
+socket.on('pickup', (trip)=> {
+  console.log('pickup', trip);
+  if(trip) {
+    const output= document.getElementById('messages');
+    output.innerHTML=`<p>Your ride has arrived!</p>`;
+  }
+})
+
+socket.on('dropoff', (trip)=> {
+  console.log('dropoff', trip);
+  if(trip) {
+    const output= document.getElementById('messages');
+    output.innerHTML=`<p>Your ride has ended, pease exit the car</p>`;
+    setTimeout(function(){
+      window.location.href = '/dashboard';
+
+    }, 3000)
+  }
 })
 
 let map;
@@ -55,7 +86,14 @@ setTimeout(() => {
       // console.log(cost);
 
       const output = document.querySelector('#output');
-      output.innerHTML = "<div class='alert-info'>Pick-up: " + start + "<br />Drop-off: " + end + "<br /> Driving distance: <i class='fas fa-road'></i> " + result.routes[0].legs[0].distance.text + "<br />Estimated Duration: <i class='fas fa-hourglass-start'></i> " + result.routes[0].legs[0].duration.text + "<br />Estimated Cost: $" + cost + "</div>";
+      output.innerHTML = 
+      `<div class='alert-info'> 
+        <h4 id='pick-up'>Pick-up: ${start}</h4>
+        <h4 id='drop-off'>Drop-off: ${end} </h4>
+        <h4 id='drive-distance'>Driving distance: ${result.routes[0].legs[0].distance.text} </h4>
+        <h4 id='duration'>Estimated Duration: ${result.routes[0].legs[0].duration.text}</h4>
+        <h4 id='ess-cost'>Estimated Cost: $${cost} </h4>
+      </div>`;
 
     } else {
       output.innerHTML = "<div class='alert-danger'><i class='fas fa-exclamation-triangle'></i> Could not retrieve driving distance.</div>";
