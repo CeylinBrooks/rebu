@@ -12,7 +12,7 @@ authRouter.post('/signup', async (req, res, next) => {
 
   try {
     let user = new User(req.body);
-    console.log(req.body)
+    console.log('req.body:', req.body)
     const userRecord = await user.save();
     const output = {
       user: userRecord,
@@ -55,9 +55,9 @@ authRouter.post('/signin', basicAuth, (req, res, next) => {
   }
 });
 
-authRouter.get('/logout', function(req, res){
+authRouter.get('/logout', function (req, res) {
   res.clearCookie('token')
-  
+
   res.redirect('/')
 })
 

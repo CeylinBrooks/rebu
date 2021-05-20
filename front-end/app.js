@@ -7,9 +7,9 @@ $("#signup").on("submit", function (e) {
   const role = $('input[name="role"]:checked').val();
 
   const userObj = {
-      username,
-      password,
-      role
+      username : username,
+      password : password,
+      role : role
   }
 
   $.ajax({
@@ -17,6 +17,7 @@ $("#signup").on("submit", function (e) {
       type: "POST",
       data: userObj,
   }).done(function (response) {
+    // console.log(response);
       if (response.status === "success") {
           window.location.href = "/signin"
       } else if(response.error.includes('duplicate')){
