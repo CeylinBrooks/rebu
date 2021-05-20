@@ -45,7 +45,7 @@ p{
 
 }
 
-button{
+.button-style{
   display: flex;
   justify-content: center;
   font-family: 'Chela One', cursive;
@@ -117,4 +117,38 @@ img {
   margin-left: auto;
   margin-right: auto;
   width: 50%;
+}
+
+.opener{
+  width: 30px;
+  border-radius: 0%;
+  float: right;
+}
+
+.ui-dialog {
+  border:5px solid #458C5E;   /** change css properties to match your theme*/
+  background-color: #F2F2F2 !important;
+  height: 100px;
+}
+
+.ui-dialog-content{
+  color: black;
+}
+
+.ui-dialog-titlebar {
+background-color:  #458C5E;
+height: 20px;
+text-align: left;
+
+}
+
+.dialog p{
+  font-size: 20px;
+}
+.dialog button{
+  width: 100%;
+}
+
+.ui-dialog-titlebar-close{
+  display: none;
 }
