@@ -161,7 +161,7 @@ io.on('connection', socket => {
 
     // get logs items from db, return on admin-logs event
     socket.on('admin-logs', async () => {
-        const logs = await Logs.find().limit(10).sort({ _id: -1 });
+        const logs = await Logs.find().limit(6).sort({ _id: -1 });
         socket.emit('admin-logs', logs);
     })
 

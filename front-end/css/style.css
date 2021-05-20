@@ -185,7 +185,7 @@ color: white;
   margin: 110px 12px 0px ;
   list-style-type: none;
   overflow: auto;
-  height: 350px;
+  /* height: 350px; */
 }
 
 .history li {
@@ -197,7 +197,7 @@ color: white;
 }
 
 #log{
-  height: 500px;
+  /* height: 500px; */
 }
 
 .alert-info {
