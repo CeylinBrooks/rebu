@@ -6,7 +6,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../css/reset.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+    integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
   <link rel="stylesheet" href="../css/style.css">
   <title>Rider | Dashboard</title>
 </head>
@@ -37,30 +38,7 @@
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script src="/socket.io/socket.io.js"></script>
   <script defer src="/rider/dashboard.js"></script>
-  <script>
-    $(function () {
-      $(".dialog").dialog({
-        autoOpen: false,
-        dialogClass: "no-close",
-        modal: true,
-        position: {
-          my: "top",
-          at: "top"
-        },
-        buttons: {
-          "Logout": function () {
-            window.location.href = '/logout';
-          },
-          Cancel: function () {
-            $(this).dialog("close");
-          }
-        }
-      });
-      $(".opener").click(function () {
-        $(".dialog").dialog("open");
-      });
-    });
-  </script>
+  <script src="logout.js"></script>
 </body>
 
 </html>
