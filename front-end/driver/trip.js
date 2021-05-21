@@ -9,6 +9,8 @@ const socket = io();
 
 let map;
 
+$('#dropoff').hide();
+
 // Initialize map 
 function initMap() {
   const directionsService = new google.maps.DirectionsService();
@@ -66,6 +68,10 @@ $('#pickup').on('submit', function (e) {
     console.log('picked up passenger', trip);
     currentTrip = trip;
   })
+
+  $('#dropoff').show();
+  $('#pickup').hide();
+
 })
 
 // dropoff ride
