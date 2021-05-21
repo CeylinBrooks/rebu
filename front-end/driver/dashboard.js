@@ -20,12 +20,12 @@ $('#accept').on('submit', function (e) {
     sessionStorage.setItem('trip', JSON.stringify(trip));
     window.location.href = "/trip"
   })
+})
 
-  // if no rides available, notify
-  socket.on('no-trips', () => {
-    // TODO: there is a bug that increases alerts with every click
-    window.alert('No rides currently requested!');
-  })
+// if no rides available, notify
+socket.on('no-trips', () => {
+  // TODO: there is a bug that increases alerts with every click
+  window.alert('No rides currently requested!');
 })
 
 

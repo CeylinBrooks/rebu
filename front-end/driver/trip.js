@@ -9,61 +9,49 @@ const socket = io();
 
 let map;
 
+$('#dropoff').hide();
+
 // Initialize map 
 function initMap() {
-  const mapOptions = {
-    center: { lat: 47.6062, lng: -122.3321 },
-    zoom: 8,
-  };
-  map = new google.maps.Map(document.getElementById('map'), mapOptions);
+  const directionsService = new google.maps.DirectionsService();
+  const directionsRenderer = new google.maps.DirectionsRenderer();
+  map = new google.maps.Map(document.getElementById('map'), {disableDefaultUI: true});
+  directionsRenderer.setMap(map);
+  renderDirections(directionsService, directionsRenderer);
 }
 
-setTimeout(() => {
-
-  // TODO: query db for trip obj, pass start and end to request below
-
+function renderDirections(directionsService, directionsRenderer) {
   const request = {
     origin: start,
     destination: end,
     travelMode: google.maps.TravelMode.DRIVING,
     unitSystem: google.maps.UnitSystem.IMPERIAL
   };
-
-  const directionsService = new google.maps.DirectionsService();
-
   directionsService.route(request, function (result, status) {
-    // console.log(result);
-    // console.log(result.routes[0].overview_path);
     if (status === 'OK') {
-
-      initMap();
-      const polyCoords = result.routes[0].overview_path;
-      const polyBound = new google.maps.Polyline({
-        path: polyCoords,
-        strokeColor: "#FF0000",
-        strokeOpacity: 0.8,
-        strokeWeight: 2,
-        fillColor: "#FF0000",
-        fillOpacity: 0.35,
-      });
-      polyBound.setMap(map);
-
+      directionsRenderer.setDirections(result);
 
       const cost = ((parseInt(result.routes[0].legs[0].distance.value) / 1609) * 1.75).toFixed(2);
-      // console.log(cost);
 
-      const output = document.querySelector('#driver-output');
-      output.innerHTML = 
-      `<div class='alert-info'> 
-        <h4 id='pick-up'>Pick-up: ${start}</h4>
-        <h4 id='drop-off'>Drop-off: ${end} </h4>
-        <h4 id='ess-cost'>Estimated Cost: $${cost} </h4>
-      </div>`;
+      const output = document.querySelector('#output');
+
+      output.innerHTML =
+        `<div class='alert-info'> 
+          <h4 id='pick-up'><b>Pick-up:</b> ${start}</h4>
+          <h4 id='drop-off'><b>Drop-off:</b> ${end} </h4>
+          <h4 id='drive-distance'><b>Driving distance:</b> ${result.routes[0].legs[0].distance.text} </h4>
+          <h4 id='duration'><b>Estimated Duration:</b> ${result.routes[0].legs[0].duration.text}</h4>
+          <h4 id='ess-cost'><b>Estimated Cost:</b> $${cost} </h4>
+          </div>`;
 
     } else {
       output.innerHTML = "<div class='alert-danger'><i class='fas fa-exclamation-triangle'></i> Could not retrieve driving distance.</div>";
     }
   });
+}
+
+setTimeout(() => {
+  initMap();
 }, 1000);
 
 // pickup ride
@@ -80,6 +68,10 @@ $('#pickup').on('submit', function (e) {
     console.log('picked up passenger', trip);
     currentTrip = trip;
   })
+
+  $('#dropoff').show();
+  $('#pickup').hide();
+
 })
 
 // dropoff ride

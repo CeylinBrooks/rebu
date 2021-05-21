@@ -2,7 +2,7 @@
 $("#signup").on("submit", function (e) {
   e.preventDefault();
 
-  const username = $("#username").val();
+  const username = $("#username").val().toLowerCase();
   const password = $("#password").val();
   const role = $('input[name="role"]:checked').val();
 
